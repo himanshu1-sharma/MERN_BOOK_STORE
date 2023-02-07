@@ -56,7 +56,7 @@ exports.login = async (req, res) => {
             })
         }
         else {
-            const token = jwt.sign({ id: existingAdmin }, process.env.JWT_SECRET, { expiresIn: '10d' })
+            const token = jwt.sign({ adminid: existingAdmin }, process.env.JWT_SECRET, { expiresIn: '10d' })
             existingAdmin = { ...existingAdmin._doc, password: null, token }
             return res.status(200).json({
                 errorcode: 0,
@@ -73,4 +73,33 @@ exports.login = async (req, res) => {
             data: error
         })
     }
+}
+
+exports.verifyToken = async (req, res, next) => {
+    let headers = req.headers[`authorization`]
+    const token = headers.split(" ")[1]
+    if (!token) {
+        return res.status(404).json({
+            errorcode: 3,
+            status: false,
+            message: "No token found",
+            data: null
+        })
+    }
+
+
+
+    jwt.verify(String(token), process.env.JWT_SECRET, (err, admin) => {
+        if (err) {
+            return res.status(400).json({
+                errorcode: 3,
+                status: false,
+                message: "invalid token",
+                data: null
+            })
+
+        }
+        console.log(admin.adminid._id)
+
+    })
 }
