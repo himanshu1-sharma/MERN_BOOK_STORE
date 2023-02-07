@@ -9,6 +9,7 @@ const { DB_CONNECT, PORT } = process.env
 var router = express()
 const bookRouter = require("./routes/book.routes")
 const categoryRouter = require("./routes/category.routes")
+const adminRouter = require("./routes/admin.routes")
 
 
 
@@ -32,6 +33,7 @@ db.on("error", (err) => console.log(err));
 router.use(bodyparser.json())
 app.use("/api/book", bookRouter)
 app.use("/api/category", categoryRouter)
+app.use("/api/admin", adminRouter)
 
 
 app.listen(PORT, () => {
