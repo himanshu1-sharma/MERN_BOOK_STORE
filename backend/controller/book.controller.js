@@ -22,7 +22,7 @@ exports.addBook = async (req, res) => {
             errorcode: 5,
             status: false,
             message: error.message,
-            data: null
+            data: error
         })
     }
 }
@@ -41,7 +41,7 @@ exports.getAllBook = async (req, res) => {
             errorcode: 5,
             staus: false,
             message: error.message,
-            data: null
+            data: error
         })
     }
 }
@@ -80,7 +80,7 @@ exports.updateBook = async (req, res) => {
             errorcode: 5,
             status: false,
             message: error.message,
-            data: null
+            data: error
         })
     }
 }
@@ -107,7 +107,7 @@ exports.deleteBook = async (req, res) => {
             errorcode: 5,
             status: false,
             message: error.message,
-            data: null
+            data: error
         })
     }
 }

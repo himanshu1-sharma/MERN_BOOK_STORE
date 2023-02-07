@@ -1,7 +1,8 @@
 const Admin = require('../model/Admin.model')
 const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken")
 
-exports.addAdmin = async (req, res) => {
+exports.register = async (req, res) => {
     try {
         let { profilepic, name, email, password } = req.body
         let adminExist = await Admin.findOne({ email: email })
@@ -30,7 +31,46 @@ exports.addAdmin = async (req, res) => {
             errorcode: 5,
             status: false,
             message: error.message,
+            data: error
+        })
+    }
+}
+
+exports.login = async (req, res) => {
+    try {
+        const { email, password } = req.body
+        let existingAdmin = await Admin.findOne({ email: email })
+        if (!existingAdmin) return res.status(200).json({
+            errorcode: 2,
+            status: false,
+            message: "Email doesn't exists",
             data: null
+        })
+        let cmpPassword = bcrypt.compareSync(password, existingAdmin.password)
+        if (!cmpPassword) {
+            return res.status(200).json({
+                errorcode: 3,
+                status: false,
+                message: "Incorrect Password",
+                data: null
+            })
+        }
+        else {
+            const token = jwt.sign({ id: existingAdmin }, process.env.JWT_SECRET, { expiresIn: '10d' })
+            existingAdmin = { ...existingAdmin._doc, password: null, token }
+            return res.status(200).json({
+                errorcode: 0,
+                status: true,
+                message: "Admin Login Successfully",
+                data: existingAdmin
+            })
+        }
+    } catch (error) {
+        return res.status(400).json({
+            errorcode: 5,
+            status: false,
+            message: error.message,
+            data: error
         })
     }
 }

@@ -18,7 +18,7 @@ exports.addCategory = async (req, res) => {
             errorcode: 5,
             status: false,
             message: error.message,
-            data: null
+            data: error
         })
     }
 }
@@ -37,7 +37,7 @@ exports.getAllCategory = async (req, res) => {
             errorcode: 5,
             status: false,
             message: error.message,
-            data: null
+            data: error
         })
     }
 }
@@ -64,7 +64,7 @@ exports.deleteCategory = async (req, res) => {
             errorcode: 5,
             status: false,
             message: error.message,
-            data: null
+            data: error
         })
     }
 }
