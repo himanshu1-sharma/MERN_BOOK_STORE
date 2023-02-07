@@ -8,6 +8,7 @@ require("dotenv").config()
 const { DB_CONNECT, PORT } = process.env
 var router = express()
 const bookRouter = require("./routes/book.routes")
+const headerRouter = require("./routes/header.routes")
 
 
 
@@ -30,6 +31,7 @@ db.on("error", (err) => console.log(err));
 
 router.use(bodyparser.json())
 app.use("/api/book", bookRouter)
+app.use("/api/header", headerRouter)
 
 
 app.listen(PORT, () => {

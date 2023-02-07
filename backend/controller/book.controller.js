@@ -1,4 +1,4 @@
-const { update } = require('../model/Book.model')
+
 const Book = require('../model/Book.model')
 
 exports.addBook = async (req, res) => {
@@ -16,7 +16,6 @@ exports.addBook = async (req, res) => {
             data: books
         })
 
-        console.log("books", books)
 
     } catch (error) {
         return res.status(200).json({

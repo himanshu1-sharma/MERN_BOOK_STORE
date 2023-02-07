@@ -1,13 +1,15 @@
 
-import "./App.css";
 import React from "react";
+import Navigation from "./Components/Navigation";
+import BookCard from "./Components/BookCard";
 
 function App() {
 
 
   return (
     <>
-      <h1>Hello</h1>
+      <Navigation />
+      <BookCard />
     </>
   );
 }
