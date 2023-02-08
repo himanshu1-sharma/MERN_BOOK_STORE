@@ -56,8 +56,14 @@ exports.login = async (req, res) => {
             })
         }
         else {
-            const token = jwt.sign({ adminid: existingAdmin }, process.env.JWT_SECRET, { expiresIn: '10d' })
+            const token = jwt.sign({ adminid: existingAdmin }, process.env.JWT_SECRET, { expiresIn: '30s' })
             existingAdmin = { ...existingAdmin._doc, password: null, token }
+            res.cookie(String(existingAdmin._id), token, {
+                path: '/',
+                expires: new Date(Date.now() + 1000 * 30),
+                httpOnly: true,
+                sameSite: 'lax'
+            })
             return res.status(200).json({
                 errorcode: 0,
                 status: true,
@@ -75,31 +81,57 @@ exports.login = async (req, res) => {
     }
 }
 
-exports.verifyToken = async (req, res, next) => {
-    let headers = req.headers[`authorization`]
-    const token = headers.split(" ")[1]
-    if (!token) {
-        return res.status(404).json({
-            errorcode: 3,
+// exports.verifyToken = async (req, res, next) => {
+//     let cookies = req.headers.cookie
+//     const token = cookies.split("=")[1]
+//     console.log(cookies)
+//     if (!token) {
+//         return res.status(404).json({
+//             errorcode: 3,
+//             status: false,
+//             message: "No token found",
+//             data: null
+//         })
+//     }
+//     jwt.verify(String(token), process.env.JWT_SECRET, (err, admin) => {
+//         if (err) {
+//             return res.status(400).json({
+//                 errorcode: 3,
+//                 status: false,
+//                 message: "invalid token",
+//                 data: null
+//             })
+
+//         }
+//         req.id = admin.adminid._id
+
+//     })
+
+//     next()
+// }
+
+exports.getAdmin = async (req, res, next) => {
+    try {
+        let adminId = req.id
+        let admin = await Admin.findById(adminId, "-password")
+        if (!admin) return res(404).json({
+            errorcode: 2,
             status: false,
-            message: "No token found",
+            message: "Admin not found",
             data: null
         })
+        return res.status(200).json({
+            errorcode: 0,
+            status: true,
+            message: "Admin Login Successfully",
+            data: admin
+        })
+    } catch (error) {
+        return res.status(400).json({
+            errorcode: 5,
+            status: false,
+            message: error.message,
+            data: error
+        })
     }
-
-
-
-    jwt.verify(String(token), process.env.JWT_SECRET, (err, admin) => {
-        if (err) {
-            return res.status(400).json({
-                errorcode: 3,
-                status: false,
-                message: "invalid token",
-                data: null
-            })
-
-        }
-        console.log(admin.adminid._id)
-
-    })
 }

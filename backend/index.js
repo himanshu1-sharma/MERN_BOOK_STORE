@@ -2,7 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const bodyparser = require('body-parser')
-const { json } = require('body-parser')
+const cookieParser = require('cookie-parser')
 const app = express()
 require("dotenv").config()
 const { DB_CONNECT, PORT } = process.env
@@ -15,6 +15,7 @@ const adminRouter = require("./routes/admin.routes")
 
 app.use(express.json())
 app.use(cors())
+app.use(cookieParser())
 
 //db connect
 
