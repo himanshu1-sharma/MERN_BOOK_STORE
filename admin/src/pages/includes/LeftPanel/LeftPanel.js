@@ -6,7 +6,6 @@ import { faDashboard, faUserAlt } from '@fortawesome/free-solid-svg-icons'
 
 const LeftPanel = () => {
 
-    const [active, setActive] = useState()
 
     return (
         <>

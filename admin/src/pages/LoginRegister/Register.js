@@ -67,7 +67,7 @@ const Register = () => {
                     <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div className="adminForm">
                             <Form onSubmit={handleSubmit}>
-                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Group className="mb-3">
                                     <Form.Label>Profile Photo</Form.Label>
                                     <Form.Control
                                         type="text"
@@ -78,7 +78,7 @@ const Register = () => {
                                         onChange={handleChange}
                                     />
                                 </Form.Group>
-                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Group className="mb-3">
                                     <Form.Label>Name</Form.Label>
                                     <Form.Control
                                         type="text"
@@ -89,7 +89,7 @@ const Register = () => {
                                         onChange={handleChange}
                                     />
                                 </Form.Group>
-                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Group className="mb-3">
                                     <Form.Label>Email</Form.Label>
                                     <Form.Control
                                         type="email"
@@ -101,7 +101,7 @@ const Register = () => {
                                     />
                                 </Form.Group>
 
-                                <Form.Group className="mb-3" controlId="formBasicPassword">
+                                <Form.Group className="mb-3">
                                     <Form.Label>Password</Form.Label>
                                     <Form.Control
                                         type="text"

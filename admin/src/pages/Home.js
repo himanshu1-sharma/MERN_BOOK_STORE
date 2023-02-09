@@ -1,8 +1,20 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import LeftPanel from './includes/LeftPanel/LeftPanel'
 import Navigation from './includes/Navigation/Navigation'
+import { UserState } from '../Context'
+import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
+
+    const { user, setUser } = UserState({})
+    console.log("user", user)
+    const navigate = useNavigate()
+    useEffect(() => {
+        if (!user.token) {
+            navigate('/login')
+        }
+
+    }, [user])
     return (
         <>
             <Navigation />
@@ -12,7 +24,9 @@ const Home = () => {
                         <LeftPanel />
                     </div>
                     <div className='col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12'>
-
+                        <div className='table'>
+                            <h4>Dashboard</h4>
+                        </div>
                     </div>
                 </div>
             </div>

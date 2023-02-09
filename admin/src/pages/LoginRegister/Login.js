@@ -7,12 +7,14 @@ import Axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
+import { UserState } from "../../Context";
 
 const Login = () => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const navigate = useNavigate()
+    const { user, setUser } = UserState()
 
 
 
@@ -32,6 +34,8 @@ const Login = () => {
                             progress: undefined,
                             theme: "dark",
                         });
+                        setUser(data.data.data)
+                        localStorage.setItem('userInfo', JSON.stringify(data.data.data))
                         navigate("/")
                     }
                     else {
@@ -51,7 +55,7 @@ const Login = () => {
             console.log(error.message)
         }
     };
-
+    console.log("user", user)
     return (
         <>
             <ToastContainer />
@@ -63,7 +67,7 @@ const Login = () => {
                     <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div className="adminForm">
                             <Form onSubmit={handleSubmit}>
-                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Group className="mb-3">
                                     <Form.Label>Email</Form.Label>
                                     <Form.Control
                                         type="email"
@@ -75,7 +79,7 @@ const Login = () => {
                                     />
                                 </Form.Group>
 
-                                <Form.Group className="mb-3" controlId="formBasicPassword">
+                                <Form.Group className="mb-3">
                                     <Form.Label>Password</Form.Label>
                                     <Form.Control
                                         type="text"
