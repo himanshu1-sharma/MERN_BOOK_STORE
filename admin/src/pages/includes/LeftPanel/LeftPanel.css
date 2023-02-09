@@ -1,5 +1,6 @@
 .leftPanel {
-    width: 100%;
+    width: 300px;
+    position: fixed;
     height: 100vh;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
     background-color: #131c2c;

@@ -5,6 +5,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  height: 100vh;
+  background-color: #071021 !important;
 }
 
 
@@ -16,4 +18,12 @@ body {
 
 a {
   text-decoration: none !important;
+}
+
+.table {
+  padding-top: 7rem;
+}
+
+.table .MuiPaper-root {
+  width: 98%;
 }

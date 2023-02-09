@@ -135,3 +135,50 @@ exports.getAdmin = async (req, res, next) => {
         })
     }
 }
+
+exports.getAllAdmin = async (req, res) => {
+    try {
+        let allAdmin = await Admin.find({}).sort({ createAt: -1 })
+        return res.status(200).json({
+            errorcode: 0,
+            status: true,
+            message: "register successfully",
+            data: allAdmin
+        })
+    } catch (error) {
+        return res.status(400).json({
+            errorcode: 5,
+            status: false,
+            message: error.message,
+            data: error
+        })
+    }
+}
+
+
+exports.deleteAdmin = async (req, res) => {
+    try {
+        let { id } = req.params
+        let admin = await Admin.findById(id)
+        if (!admin) return res.status(200).json({
+            errorcode: 1,
+            status: false,
+            message: "Admin id not found",
+            data: null
+        })
+        await Admin.deleteOne({ _id: id })
+        return res.status(200).json({
+            errorcode: 0,
+            status: true,
+            message: "Admin deleted Successfully",
+            data: null
+        })
+    } catch (error) {
+        return res.status(400).json({
+            errorcode: 5,
+            status: false,
+            message: error.message,
+            data: error
+        })
+    }
+}

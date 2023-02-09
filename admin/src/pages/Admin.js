@@ -1,8 +1,9 @@
 import React from 'react'
-import LeftPanel from './includes/LeftPanel/LeftPanel'
 import Navigation from './includes/Navigation/Navigation'
+import LeftPanel from './includes/LeftPanel/LeftPanel'
+import AdminTable from './Tables/AdminTable'
 
-const Home = () => {
+const Admin = () => {
     return (
         <>
             <Navigation />
@@ -12,7 +13,9 @@ const Home = () => {
                         <LeftPanel />
                     </div>
                     <div className='col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12'>
-
+                        <div className='table'>
+                            <AdminTable />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -20,4 +23,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default Admin
