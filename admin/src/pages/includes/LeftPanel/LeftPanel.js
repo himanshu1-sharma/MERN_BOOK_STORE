@@ -3,9 +3,17 @@ import './LeftPanel.css'
 import { NavLink } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDashboard, faUserAlt } from '@fortawesome/free-solid-svg-icons'
+import { UserState } from '../../../Context'
+import { useNavigate } from 'react-router-dom'
 
 const LeftPanel = () => {
 
+    const { user, setUser } = UserState({})
+    const navigate = useNavigate()
+    const handleLogout = () => {
+        setUser({})
+        navigate('/login')
+    }
 
     return (
         <>
@@ -19,6 +27,18 @@ const LeftPanel = () => {
                                 </div>
                                 <div className='panelListName'>
                                     Dashboard
+                                </div>
+                            </div>
+                        </li>
+                    </NavLink>
+                    <NavLink exact="true" activeclassname="active" to="/admin">
+                        <li>
+                            <div className='panelList'>
+                                <div className='panelListIcon'>
+                                    <FontAwesomeIcon icon={faUserAlt} />
+                                </div>
+                                <div className='panelListName'>
+                                    Admin
                                 </div>
                             </div>
                         </li>
@@ -48,18 +68,16 @@ const LeftPanel = () => {
                         </li>
                     </NavLink>
 
-                    <NavLink exact="true" activeclassname="active" to="/admin">
-                        <li>
-                            <div className='panelList'>
-                                <div className='panelListIcon'>
-                                    <FontAwesomeIcon icon={faUserAlt} />
-                                </div>
-                                <div className='panelListName'>
-                                    Admin
-                                </div>
+                    <li>
+                        <div className='panelList' onClick={handleLogout}>
+                            <div className='panelListIcon'>
+                                <FontAwesomeIcon icon={faDashboard} />
                             </div>
-                        </li>
-                    </NavLink>
+                            <div className='panelListName'>
+                                Logout
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </>

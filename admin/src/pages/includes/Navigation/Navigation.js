@@ -1,7 +1,11 @@
 import React from 'react'
 import './Navigation.css'
+import { UserState } from '../../../Context'
 
 const Navigation = () => {
+
+    const { user, userState } = UserState()
+
     return (
         <>
             <div className='navigation'>
@@ -15,7 +19,8 @@ const Navigation = () => {
                         <div className='profile'>
                             <div className='profileImg'></div>
                             <div className='profileContent'>
-                                <h4>Himanshu Sharma</h4>
+                                <img src={user.profilepic} />
+                                <h4>{user.name}</h4>
                             </div>
                         </div>
                     </li>
