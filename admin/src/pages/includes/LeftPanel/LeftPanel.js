@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './LeftPanel.css'
 import { NavLink } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDashboard, faUserAlt } from '@fortawesome/free-solid-svg-icons'
+import { faDashboard, faUserAlt, faBook } from '@fortawesome/free-solid-svg-icons'
 import { UserState } from '../../../Context'
 import { useNavigate } from 'react-router-dom'
 
@@ -39,6 +39,18 @@ const LeftPanel = () => {
                                 </div>
                                 <div className='panelListName'>
                                     Admin
+                                </div>
+                            </div>
+                        </li>
+                    </NavLink>
+                    <NavLink exact="true" activeclassname="active" to="/book">
+                        <li>
+                            <div className='panelList'>
+                                <div className='panelListIcon'>
+                                    <FontAwesomeIcon icon={faBook} />
+                                </div>
+                                <div className='panelListName'>
+                                    Book
                                 </div>
                             </div>
                         </li>
